@@ -1,9 +1,10 @@
 import { ScrollView, StyleSheet } from 'react-native';
 import { List, Switch, Text } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Settings } from '../types';
 
 export function SettingsScreen({ settings, update }: { settings: Settings; update: (patch: Partial<Settings>) => Promise<void> }) {
-  return <ScrollView contentContainerStyle={styles.root}>
+  return <SafeAreaView style={styles.safe} edges={['top', 'right', 'left']}><ScrollView contentContainerStyle={styles.root}>
     <Text variant="headlineSmall" style={styles.title}>Settings</Text>
     <List.Section>
       <List.Subheader>Appearance</List.Subheader>
@@ -18,7 +19,7 @@ export function SettingsScreen({ settings, update }: { settings: Settings; updat
       <List.Item title="Shraddha Jewellers Rate Calculator" description="Version 1.0.0 · Built by Dgonix.com" left={p => <List.Icon {...p} icon="information-outline" />} />
       <List.Item title="Privacy policy" description="Your calculations stay on this device" left={p => <List.Icon {...p} icon="shield-check-outline" />} />
     </List.Section>
-  </ScrollView>;
+  </ScrollView></SafeAreaView>;
 }
 
-const styles = StyleSheet.create({ root: { padding: 16 }, title: { fontWeight: '800', marginBottom: 10 } });
+const styles = StyleSheet.create({ safe: { flex: 1 }, root: { padding: 16 }, title: { fontWeight: '800', marginBottom: 10 } });

@@ -6,13 +6,17 @@
     "description": "Jewellery Rate Calculator for Shraddha Jewellers, built by Dgonix.com.",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
+    "icon": "./assets/icon.png",
     "splash": {
-      "backgroundColor": "#3A0D1C"
+      "image": "./assets/splash_art.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f3e9d4"
     },
     "android": {
       "package": "com.dgonix.shraddhajewellers",
       "adaptiveIcon": {
-        "backgroundColor": "#3A0D1C"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#f3e9d4"
       }
     },
     "plugins": [
