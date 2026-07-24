@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Shraddha Jewellers",
+    "slug": "jewellery-rate-calculator",
+    "version": "1.0.0",
+    "description": "Jewellery Rate Calculator for Shraddha Jewellers, built by Dgonix.com.",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#3A0D1C"
+    },
+    "android": {
+      "package": "com.dgonix.shraddhajewellers",
+      "adaptiveIcon": {
+        "backgroundColor": "#3A0D1C"
+      }
+    },
+    "plugins": [
+      "expo-asset",
+      "expo-font"
+    ]
+  }
+}

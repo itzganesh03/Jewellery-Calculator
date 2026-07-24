@@ -1,0 +1,2 @@
+import { calculateJewellery } from '../calculation';
+describe('calculateJewellery', () => { it('calculates metal amount, making charge and GST correctly', () => { const result = calculateJewellery({ metal: 'gold', purity: 'gold22', weight: 10, rate: 8425, makingPercent: 10, hallmark: 45, stone: 1000, rhodium: 0 }); expect(result.metalAmount).toBe(84250); expect(result.makingAmount).toBe(8425); expect(result.subtotal).toBe(93720); expect(result.gst).toBeCloseTo(2811.6); expect(result.total).toBeCloseTo(96531.6); }); });

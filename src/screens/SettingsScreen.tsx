@@ -1,0 +1,25 @@
+import { ScrollView, StyleSheet } from 'react-native';
+import { List, Switch, Text } from 'react-native-paper';
+import { Settings } from '../types';
+
+export function SettingsScreen({ settings, update }: { settings: Settings; update: (patch: Partial<Settings>) => Promise<void> }) {
+  return <ScrollView contentContainerStyle={styles.root}>
+    <Text variant="headlineSmall" style={styles.title}>Settings</Text>
+    <List.Section>
+      <List.Subheader>Appearance</List.Subheader>
+      <List.Item title="Dark mode" description="Use the Shraddha Jewellers dark theme" left={p => <List.Icon {...p} icon="theme-light-dark" />} right={() => <Switch value={settings.isDarkMode} onValueChange={isDarkMode => update({ isDarkMode })} />} />
+    </List.Section>
+    <List.Section>
+      <List.Subheader>Prices</List.Subheader>
+      <List.Item title="Auto refresh prices" description="Refresh every 15 minutes while the app is open" left={p => <List.Icon {...p} icon="refresh-auto" />} right={() => <Switch value={settings.autoRefresh} onValueChange={autoRefresh => update({ autoRefresh })} />} />
+      <List.Item title="Currency" description="Indian Rupee (INR)" left={p => <List.Icon {...p} icon="currency-inr" />} />
+    </List.Section>
+    <List.Section>
+      <List.Subheader>About</List.Subheader>
+      <List.Item title="Shraddha Jewellers Rate Calculator" description="Version 1.0.0 · Built by Dgonix.com" left={p => <List.Icon {...p} icon="information-outline" />} />
+      <List.Item title="Privacy policy" description="Your calculations stay on this device" left={p => <List.Icon {...p} icon="shield-check-outline" />} />
+    </List.Section>
+  </ScrollView>;
+}
+
+const styles = StyleSheet.create({ root: { padding: 16 }, title: { fontWeight: '800', marginBottom: 10 } });
