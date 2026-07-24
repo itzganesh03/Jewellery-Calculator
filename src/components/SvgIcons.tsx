@@ -204,3 +204,22 @@ export function ShieldCheckOutlineIcon({ size = 24, color = '#000' }: IconProps)
     </Svg>
   );
 }
+
+export function CheckboxIcon({ checked, size = 24, color = '#000' }: IconProps & { checked: boolean }) {
+  const strokeWidth = size / 11;
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Rect
+        x="3.5"
+        y="3.5"
+        width="17"
+        height="17"
+        rx="4"
+        fill={checked ? color : 'none'}
+        stroke={color}
+        strokeWidth={strokeWidth}
+      />
+      {checked ? <Path d="M7.2 12.1 10.3 15.2 16.8 8.7" stroke="#fff" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" /> : null}
+    </Svg>
+  );
+}
