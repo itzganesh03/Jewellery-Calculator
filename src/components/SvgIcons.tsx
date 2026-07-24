@@ -83,6 +83,18 @@ export function GoldIcon({ size = 24, color = '#000' }: IconProps) {
   );
 }
 
+export function SilverIcon({ size = 24, color = '#000' }: IconProps) {
+  const strokeWidth = size / 12;
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Rect x="4" y="7" width="16" height="10" rx="1.5" stroke={color} strokeWidth={strokeWidth} strokeLinejoin="round" />
+      <Path d="M8 7V5.5a1.5 1.5 0 0 1 1.5-1.5h5A1.5 1.5 0 0 1 16 5.5V7" stroke={color} strokeWidth={strokeWidth} strokeLinejoin="round" />
+      <Line x1="8" y1="11" x2="16" y2="11" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
+      <Line x1="8" y1="14" x2="16" y2="14" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
 export function CircleOutlineIcon({ size = 24, color = '#000' }: IconProps) {
   const strokeWidth = size / 12;
   return (
