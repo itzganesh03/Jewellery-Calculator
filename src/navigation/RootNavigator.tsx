@@ -4,12 +4,12 @@ import { useTheme } from 'react-native-paper';
 import { HomeScreen } from '../screens/HomeScreen';
 import { HistoryScreen } from '../screens/HistoryScreen';
 import { SettingsScreen } from '../screens/SettingsScreen';
-import { Settings } from '../types';
+import { Rates, Settings } from '../types';
 import { CalculatorIcon, HistoryIcon, SettingsIcon } from '../components/SvgIcons';
 
 const Tab = createBottomTabNavigator();
 
-export function RootNavigator({ settings, update }: { settings: Settings; update: (patch: Partial<Settings>) => Promise<void> }) {
+export function RootNavigator({ settings, update, rates, updateRates }: { settings: Settings; update: (patch: Partial<Settings>) => Promise<void>; rates: Rates; updateRates: (patch: Partial<Omit<Rates, 'updatedAt'>>) => Promise<Rates> }) {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   return (
@@ -26,11 +26,11 @@ export function RootNavigator({ settings, update }: { settings: Settings; update
       },
     })}>
       <Tab.Screen name="Calculator">
-        {() => <HomeScreen settings={settings} />}
+        {() => <HomeScreen settings={settings} rates={rates} />}
       </Tab.Screen>
       <Tab.Screen name="History" component={HistoryScreen} />
       <Tab.Screen name="Settings">
-        {() => <SettingsScreen settings={settings} update={update} />}
+        {() => <SettingsScreen settings={settings} update={update} rates={rates} updateRates={updateRates} />}
       </Tab.Screen>
     </Tab.Navigator>
   );

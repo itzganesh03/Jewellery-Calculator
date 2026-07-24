@@ -9,13 +9,12 @@ import { NumberField } from '../components/Field';
 import { AnimatedButton } from '../components/AnimatedButton';
 import { DiamondIcon, GoldIcon, SilverIcon } from '../components/SvgIcons';
 import { PURITY_LABELS } from '../constants';
-import { useRates } from '../hooks/useRates';
-import { CalculationResult, Metal, Purity, Settings } from '../types';
+import { CalculationResult, Metal, Purity, Rates, Settings } from '../types';
 import { calculateJewellery, dateTime, money } from '../utils/calculation';
 
 interface FormValues { weight: string; makingPercent: string; makingChargeType: 'percent' | 'fixedRate'; hallmark: string; other: string; }
 const defaultValues: FormValues = { weight: '', makingPercent: '', makingChargeType: 'percent', hallmark: '0', other: '0' };
-export function HomeScreen({ settings }: { settings: Settings }) {
+export function HomeScreen({ settings, rates }: { settings: Settings; rates: Rates }) {
   const theme = useTheme();
   const { width, height } = useWindowDimensions();
   const isSmallScreen = width < 360;
@@ -23,7 +22,6 @@ export function HomeScreen({ settings }: { settings: Settings }) {
   const [purity, setPurity] = useState<Purity>('gold22');
   const [result, setResult] = useState<CalculationResult>();
   const [makingMenuVisible, setMakingMenuVisible] = useState(false);
-  const { rates, loading, updateRates } = useRates();
   const { control, reset, watch, setValue } = useForm<FormValues>({ defaultValues });
   const makingChargeType = watch('makingChargeType');
   const weight = watch('weight');

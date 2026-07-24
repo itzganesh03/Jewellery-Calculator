@@ -2,14 +2,11 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { List, Switch, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRates } from '../hooks/useRates';
-import { useSettings } from '../hooks/useSettings';
 import { PURITY_LABELS } from '../constants';
-import { Settings } from '../types';
+import { Rates, Settings } from '../types';
 import { CurrencyInrIcon, InfoOutlineIcon, ShieldCheckOutlineIcon, ThemeLightDarkIcon } from '../components/SvgIcons';
 
-export function SettingsScreen({ settings, update }: { settings: Settings; update: (patch: Partial<Settings>) => Promise<void> }) {
-  const { rates, updateRates } = useRates();
+export function SettingsScreen({ settings, update, rates, updateRates }: { settings: Settings; update: (patch: Partial<Settings>) => Promise<void>; rates: Rates; updateRates: (patch: Partial<Omit<Rates, 'updatedAt'>>) => Promise<Rates> }) {
   const [draftRates, setDraftRates] = useState<Record<string, string>>({
     gold22: String(rates.gold22),
     gold18: String(rates.gold18),
