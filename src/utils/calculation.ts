@@ -3,7 +3,7 @@ import { CalculationInput, CalculationResult } from '../types';
 
 export const calculateJewellery = (input: CalculationInput): CalculationResult => {
   const metalAmount = input.rate * input.weight;
-  const makingAmount = metalAmount * (input.makingPercent / 100);
+  const makingAmount = input.makingChargeType === 'percent' ? metalAmount * (input.makingPercent / 100) : input.makingPercent;
   const subtotal = metalAmount + makingAmount + input.hallmark + input.stone + input.rhodium;
   const gst = subtotal * GST_RATE;
   return { ...input, metalAmount, makingAmount, subtotal, gst, total: subtotal + gst, createdAt: new Date().toISOString() };

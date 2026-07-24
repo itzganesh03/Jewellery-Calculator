@@ -10,8 +10,7 @@ export function SettingsScreen({ settings, update }: { settings: Settings; updat
       <List.Item title="Dark mode" description="Use the Shraddha Jewellers dark theme" left={p => <List.Icon {...p} icon="theme-light-dark" />} right={() => <Switch value={settings.isDarkMode} onValueChange={isDarkMode => update({ isDarkMode })} />} />
     </List.Section>
     <List.Section>
-      <List.Subheader>Prices</List.Subheader>
-      <List.Item title="Auto refresh prices" description="Refresh every 15 minutes while the app is open" left={p => <List.Icon {...p} icon="refresh-auto" />} right={() => <Switch value={settings.autoRefresh} onValueChange={autoRefresh => update({ autoRefresh })} />} />
+      <List.Subheader>Currency</List.Subheader>
       <List.Item title="Currency" description="Indian Rupee (INR)" left={p => <List.Icon {...p} icon="currency-inr" />} />
     </List.Section>
     <List.Section>
