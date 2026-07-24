@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Shraddha Jewellers",
+    "name": "Swastik Gold",
     "slug": "jewellery-rate-calculator",
     "version": "1.0.0",
-    "description": "Jewellery Rate Calculator for Shraddha Jewellers, built by Dgonix.com.",
+    "description": "Jewellery Rate Calculator for Swastik Gold, built by Dgonix.com.",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
