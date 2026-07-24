@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react';
-import { Animated, Dimensions, StyleSheet, Image, View } from 'react-native';
+import { Animated, StyleSheet, ImageBackground, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 interface SplashScreenProps { onDone: () => void; }
@@ -66,14 +66,18 @@ export function SplashScreen({ onDone }: SplashScreenProps) {
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
-      <Animated.Image
-        source={require('../../assets/splash_art.jpg')}
-        style={[styles.art, { opacity: fadeAnim }]}
-        resizeMode="cover"
-      />
-      {sparkles.map((item, index) => (
-        <Sparkle key={index} {...item} />
-      ))}
+      <View style={styles.art}>
+        <ImageBackground
+          source={require('../../assets/splash_art.jpeg')}
+          style={styles.image}
+          resizeMode="cover"
+        />
+        <Animated.View style={[styles.fadeOverlay, { opacity: fadeAnim }]}>
+          {sparkles.map((item, index) => (
+            <Sparkle key={index} {...item} />
+          ))}
+        </Animated.View>
+      </View>
     </View>
   );
 }
@@ -85,13 +89,13 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   art: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    ...StyleSheet.absoluteFillObject,
+  },
+  image: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  fadeOverlay: {
+    flex: 1,
   },
   sparkle: {
     position: 'absolute',

@@ -9,6 +9,7 @@ import { shareCalculation } from '../services/pdfService';
 import { storage } from '../storage/storage';
 import { CalculationResult } from '../types';
 import { dateTime, money } from '../utils/calculation';
+import { DeleteOutlineIcon, DeleteSweepIcon, FilePdfIcon } from '../components/SvgIcons';
 
 export function HistoryScreen() {
   const [items, setItems] = useState<CalculationResult[]>([]);
@@ -24,7 +25,7 @@ export function HistoryScreen() {
       <View style={styles.root}>
         <View style={styles.head}>
           <Text variant="headlineSmall" style={styles.title}>Calculation history</Text>
-          {items.length > 0 && <IconButton icon="delete-sweep-outline" onPress={clear} accessibilityLabel="Clear all history"/>}
+          {items.length > 0 && <IconButton icon={({ size, color }) => <DeleteSweepIcon size={size ?? 24} color={color} />} onPress={clear} accessibilityLabel="Clear all history"/>}
         </View>
         <Searchbar value={query} onChangeText={setQuery} placeholder="Search by metal or amount" style={styles.search}/>
         <FlatList
@@ -46,8 +47,8 @@ export function HistoryScreen() {
                   <Text variant="titleLarge" style={styles.amount}>{money(item.total)}</Text>
                 </View>
                 <View>
-                  <IconButton icon="file-pdf-box" onPress={() => shareCalculation(item)} accessibilityLabel="Export calculation" />
-                  <IconButton icon="delete-outline" onPress={() => remove(item.createdAt)} accessibilityLabel="Delete calculation" />
+                  <IconButton icon={({ size, color }) => <FilePdfIcon size={size ?? 24} color={color} />} onPress={() => shareCalculation(item)} accessibilityLabel="Export calculation" />
+                  <IconButton icon={({ size, color }) => <DeleteOutlineIcon size={size ?? 24} color={color} />} onPress={() => remove(item.createdAt)} accessibilityLabel="Delete calculation" />
                 </View>
               </View>
             </FadeInCard>
