@@ -9,7 +9,7 @@ export const calculateJewellery = (input: CalculationInput): CalculationResult =
     : input.makingChargeType === 'percent'
       ? metalAmount * (input.makingPercent / 100)
       : input.makingPercent;
-  const subtotal = metalAmount + makingAmount + input.hallmark + input.stone + input.rhodium;
+  const subtotal = metalAmount + makingAmount + input.hallmark + input.other;
   const gst = input.gstEnabled ? subtotal * (input.gstRate / 100) : 0;
   return { ...input, metalAmount, makingAmount, subtotal, gst, total: subtotal + gst, createdAt: new Date().toISOString() };
 };

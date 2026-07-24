@@ -25,7 +25,9 @@ export function RootNavigator({ settings, update }: { settings: Settings; update
         return <SettingsIcon size={iconSize} color={color} />;
       },
     })}>
-      <Tab.Screen name="Calculator" component={HomeScreen} />
+      <Tab.Screen name="Calculator">
+        {() => <HomeScreen settings={settings} />}
+      </Tab.Screen>
       <Tab.Screen name="History" component={HistoryScreen} />
       <Tab.Screen name="Settings">
         {() => <SettingsScreen settings={settings} update={update} />}

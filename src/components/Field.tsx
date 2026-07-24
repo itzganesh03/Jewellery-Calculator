@@ -36,6 +36,7 @@ export function NumberField<T extends FieldValues>({
               onChangeText={onChange}
               keyboardType="decimal-pad"
               mode="outlined"
+              dense
               error={!!error}
               style={style}
               right={
@@ -47,9 +48,11 @@ export function NumberField<T extends FieldValues>({
                 ) : undefined
               }
             />
-            <HelperText type="error" visible={!!error}>
-              {error?.message}
-            </HelperText>
+            {error && (
+              <HelperText type="error" visible>
+                {error.message}
+              </HelperText>
+            )}
           </>
         )}
       />
