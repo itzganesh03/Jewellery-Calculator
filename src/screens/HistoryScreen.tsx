@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import { Alert, FlatList, StyleSheet, View } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
-import { IconButton, Searchbar, Text } from 'react-native-paper';
+import { Alert, FlatList, Share, StyleSheet, View } from 'react-native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { IconButton, Menu, Searchbar, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FadeInCard } from '../components/FadeInCard';
 import { PURITY_LABELS } from '../constants';
@@ -9,15 +9,19 @@ import { shareCalculation } from '../services/pdfService';
 import { storage } from '../storage/storage';
 import { CalculationResult } from '../types';
 import { dateTime, money } from '../utils/calculation';
-import { DeleteOutlineIcon, DeleteSweepIcon, FilePdfIcon } from '../components/SvgIcons';
+import { buildShareText } from '../utils/shareText';
+import { DeleteOutlineIcon, DeleteSweepIcon, PencilIcon, ShareIcon } from '../components/SvgIcons';
 
 export function HistoryScreen() {
+  const navigation = useNavigation();
   const [items, setItems] = useState<CalculationResult[]>([]);
   const [query, setQuery] = useState('');
+  const [shareMenuFor, setShareMenuFor] = useState<string | null>(null);
   const load = useCallback(() => { storage.getHistory().then(setItems); }, []);
   useFocusEffect(load);
   const remove = (createdAt: string) => Alert.alert('Delete calculation?', 'This saved calculation will be removed.', [{ text: 'Cancel', style: 'cancel' }, { text: 'Delete', style: 'destructive', onPress: async () => { const next = items.filter(i => i.createdAt !== createdAt); setItems(next); await storage.saveHistory(next); } }]);
   const clear = () => Alert.alert('Clear all history?', 'This cannot be undone.', [{ text: 'Cancel', style: 'cancel' }, { text: 'Clear all', style: 'destructive', onPress: async () => { setItems([]); await storage.saveHistory([]); } }]);
+  const edit = (item: CalculationResult) => (navigation.navigate as (name: string, params?: object) => void)('Calculator', { editRecord: item });
   const filtered = items.filter(i => `${PURITY_LABELS[i.purity]} ${i.total}`.toLowerCase().includes(query.toLowerCase()));
 
   return (
@@ -46,9 +50,13 @@ export function HistoryScreen() {
                   <Text variant="bodySmall">{item.weight} gm · {dateTime(item.createdAt)}</Text>
                   <Text variant="titleLarge" style={styles.amount}>{money(item.total)}</Text>
                 </View>
-                <View>
-                  <IconButton icon={({ size, color }) => <FilePdfIcon size={size ?? 24} color={color} />} onPress={() => shareCalculation(item)} accessibilityLabel="Export calculation" />
-                  <IconButton icon={({ size, color }) => <DeleteOutlineIcon size={size ?? 24} color={color} />} onPress={() => remove(item.createdAt)} accessibilityLabel="Delete calculation" />
+                <View style={styles.itemActions}>
+                  <IconButton icon={({ size, color }) => <PencilIcon size={size ?? 22} color={color} />} onPress={() => edit(item)} accessibilityLabel="Edit calculation" />
+                  <Menu visible={shareMenuFor === item.createdAt} onDismiss={() => setShareMenuFor(null)} anchor={<IconButton icon={({ size, color }) => <ShareIcon size={size ?? 22} color={color} />} onPress={() => setShareMenuFor(item.createdAt)} accessibilityLabel="Share calculation" />}>
+                    <Menu.Item onPress={() => { setShareMenuFor(null); Share.share({ message: buildShareText(item) }); }} title="Share as text" />
+                    <Menu.Item onPress={() => { setShareMenuFor(null); shareCalculation(item); }} title="Share as PDF" />
+                  </Menu>
+                  <IconButton icon={({ size, color }) => <DeleteOutlineIcon size={size ?? 22} color={color} />} onPress={() => remove(item.createdAt)} accessibilityLabel="Delete calculation" />
                 </View>
               </View>
             </FadeInCard>
@@ -66,8 +74,9 @@ const styles = StyleSheet.create({
   title: { fontWeight: '800' },
   search: { marginVertical: 14 },
   list: { gap: 10, paddingBottom: 20 },
-  item: { borderRadius: 16, overflow: 'hidden' },
+  item: { borderRadius: 16 },
   itemPad: { padding: 14, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  itemActions: { flexDirection: 'row', alignItems: 'center' },
   amount: { marginTop: 7, fontWeight: '800' },
   empty: { alignItems: 'center', paddingTop: 80, gap: 6, opacity: .65 },
 });

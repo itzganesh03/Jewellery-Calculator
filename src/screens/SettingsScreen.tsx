@@ -4,7 +4,7 @@ import { List, Switch, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PURITY_LABELS } from '../constants';
 import { Rates, Settings } from '../types';
-import { CurrencyInrIcon, InfoOutlineIcon, ShieldCheckOutlineIcon, ThemeLightDarkIcon } from '../components/SvgIcons';
+import { CurrencyInrIcon, InfoOutlineIcon, SaveIcon, ShieldCheckOutlineIcon, ThemeLightDarkIcon } from '../components/SvgIcons';
 
 export function SettingsScreen({ settings, update, rates, updateRates }: { settings: Settings; update: (patch: Partial<Settings>) => Promise<void>; rates: Rates; updateRates: (patch: Partial<Omit<Rates, 'updatedAt'>>) => Promise<Rates> }) {
   const [draftRates, setDraftRates] = useState<Record<string, string>>({
@@ -53,7 +53,7 @@ export function SettingsScreen({ settings, update, rates, updateRates }: { setti
           </View>
         ))}
       </View>
-      <List.Item title="Save rates" description="Update all manual rates" left={props => <ThemeLightDarkIcon size={24} color={props.color} />} onPress={saveRates} />
+      <List.Item title="Save rates" description="Update all manual rates" left={props => <SaveIcon size={24} color={props.color} />} onPress={saveRates} />
     </List.Section>
     <List.Section>
       <List.Subheader>GST</List.Subheader>

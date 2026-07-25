@@ -7,6 +7,31 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
+# React Native's bridge dispatches @ReactMethod calls by reflection, so any native
+# module without an explicit keep rule can get its methods stripped/renamed by R8
+# and silently fail (or throw) only in minified release builds. Keep native modules
+# and their annotated members generically instead of allow-listing packages one by one.
+-keep,allowobfuscation @interface com.facebook.react.bridge.ReactModule
+-keep,allowobfuscation @interface com.facebook.react.uimanager.annotations.ReactProp
+-keep,allowobfuscation @interface com.facebook.react.uimanager.annotations.ReactPropGroup
+-keep class * extends com.facebook.react.bridge.NativeModule { *; }
+-keepclassmembers,includedescriptorclasses class * { native <methods>; }
+-keepclassmembers class * { @com.facebook.react.bridge.ReactMethod <methods>; }
+-keepclassmembers class * { @com.facebook.react.uimanager.annotations.ReactProp <methods>; }
+-keepclassmembers class * { @com.facebook.react.uimanager.annotations.ReactPropGroup <methods>; }
+
+# react-native-view-shot (share as image)
+-keep class fr.greweb.reactnativeviewshot.** { *; }
+-dontwarn fr.greweb.reactnativeviewshot.**
+
+# async-storage (settings, rates, history persistence)
+-keep class com.reactnativecommunity.asyncstorage.** { *; }
+-dontwarn com.reactnativecommunity.asyncstorage.**
+
+# expo modules (sharing, print, asset, font)
+-keep class expo.modules.** { *; }
+-dontwarn expo.modules.**
+
 # react-native-reanimated
 -keep class com.swmansion.reanimated.** { *; }
 -keep class com.facebook.react.turbomodule.** { *; }

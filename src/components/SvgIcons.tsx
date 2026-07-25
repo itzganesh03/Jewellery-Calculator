@@ -160,6 +160,41 @@ export function FilePdfIcon({ size = 24, color = '#000' }: IconProps) {
   );
 }
 
+export function ShareIcon({ size = 24, color = '#000' }: IconProps) {
+  const strokeWidth = size / 12;
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Circle cx="18" cy="5" r="2.6" stroke={color} strokeWidth={strokeWidth} />
+      <Circle cx="6" cy="12" r="2.6" stroke={color} strokeWidth={strokeWidth} />
+      <Circle cx="18" cy="19" r="2.6" stroke={color} strokeWidth={strokeWidth} />
+      <Line x1="8.3" y1="10.7" x2="15.7" y2="6.3" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
+      <Line x1="8.3" y1="13.3" x2="15.7" y2="17.7" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
+export function SaveIcon({ size = 24, color = '#000' }: IconProps) {
+  const strokeWidth = size / 12;
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path d="M5.5 4.5h10.2l2.8 2.8v11.2a1 1 0 0 1-1 1H5.5a1 1 0 0 1-1-1V5.5a1 1 0 0 1 1-1Z" stroke={color} strokeWidth={strokeWidth} strokeLinejoin="round" />
+      <Path d="M8 4.5v5h6.5v-5" stroke={color} strokeWidth={strokeWidth} strokeLinejoin="round" />
+      <Path d="M8 14h8v5.5H8V14Z" stroke={color} strokeWidth={strokeWidth} strokeLinejoin="round" />
+    </Svg>
+  );
+}
+
+export function BookmarkIcon({ size = 24, color = '#000' }: IconProps) {
+  const strokeWidth = size / 12;
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path d="M6.5 4h11a1 1 0 0 1 1 1v15l-6.5-4-6.5 4V5a1 1 0 0 1 1-1Z" stroke={color} strokeWidth={strokeWidth} strokeLinejoin="round" />
+      <Path d="M9.3 10.2h5.4" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
+      <Path d="M12 7.9v4.6" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
+    </Svg>
+  );
+}
+
 export function ThemeLightDarkIcon({ size = 24, color = '#000' }: IconProps) {
   const strokeWidth = size / 12;
   return (
